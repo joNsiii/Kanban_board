@@ -20,38 +20,84 @@ export class ApiService implements HttpInterceptor {
   messages: string = '';
   messageVisible = false;
 
+  /**
+   * Sends a login request to the server.
+   *
+   * @param {object} body - The login credentials and other necessary data.
+   * @returns An observable that emits the server's response.
+   */
   login(body: any) {
     return this.http.post(this.baseUrl + 'login/', body);
   }
 
+  /**
+   * Sends a register request to the server.
+   *
+   * @param {object} body - The login credentials and other necessary data.
+   * @returns  An observable that emits the server's response.
+   */
   register(body: any) {
     return this.http.post(this.baseUrl + 'register/', body);
   }
 
+  /**
+   *
+   * @returns An observable that emits the server's response.
+   */
   getUserList() {
     return this.http.get(this.baseUrl + 'users/');
   }
 
+  /**
+   *
+   * @returns An observable that emits the server's response.
+   */
   getTodos() {
     return this.http.get(this.baseUrl + 'todo/');
   }
 
+  /**
+   *
+   * @returns An observable that emits the server's response.
+   */
   postTodos(body: any) {
     return this.http.post(this.baseUrl + 'todo/', body);
   }
 
+  /**
+   *
+   * @param {object} body - The login credentials and other necessary data.
+   * @param {number } id - Todo-id
+   * @returns An observable that emits the server's response.
+   */
   updateTodo(body: any, id: number) {
     return this.http.put(this.baseUrl + `todo/${id}/`, body);
   }
 
+  /**
+   *
+   * @param body
+   * @returns An observable that emits the server's response.
+   */
   logout(body: any) {
     return this.http.post(this.baseUrl + 'logout/', body);
   }
 
+  /**
+   *
+   * @param {number} id - Todo-id
+   * @returns An observable that emits the server's response.
+   */
   delete(id: number) {
     return this.http.delete(this.baseUrl + `todo/${id}/`);
   }
 
+  /**
+   *
+   * @param req get httprequest
+   * @param next clone httprequest and add auth-token
+   * @returns return new header with auth-token
+   */
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -77,6 +123,10 @@ export class ApiService implements HttpInterceptor {
     );
   }
 
+  /**
+   *
+   * @param message - string for the user message
+   */
   showMessage(message: string) {
     this.messages = message;
     if (this.messages !== '') {

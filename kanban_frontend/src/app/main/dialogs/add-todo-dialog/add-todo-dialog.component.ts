@@ -41,20 +41,34 @@ export class AddTodoDialogComponent implements OnInit, OnDestroy {
   });
   errorMessage: ValidationErrors | null = null;
 
+  /**
+   * get user list
+   */
   ngOnInit(): void {
     this.getUserList();
   }
 
+  /**
+   * unsubscribe to user list
+   */
   ngOnDestroy(): void {
     this.getUserList().unsubscribe();
   }
 
+  /**
+   *
+   * @returns the user list
+   */
   getUserList() {
     return this.api.getUserList().subscribe((user: any) => {
       this.users = user;
     });
   }
 
+  /**
+   * if form is valid, we sent the object to backend and recive a statuscode
+   * show message for the user
+   */
   submit() {
     if (this.createTodoForm.valid) {
       this.api.postTodos(this.createTodoForm.value).subscribe({
@@ -72,6 +86,9 @@ export class AddTodoDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * close dialog
+   */
   close() {
     this.dialogRef.close();
   }

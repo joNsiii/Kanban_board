@@ -33,10 +33,17 @@ export class HomeComponent implements OnInit {
     done: [],
   };
 
+  /**
+   * onInit get all todos.
+   */
   ngOnInit(): void {
     this.getTodos();
   }
 
+  /**
+   *
+   * @returns returns all todos from backend!
+   */
   getTodos() {
     this.todos.set([]);
     this.sortedTodos = {
@@ -51,6 +58,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * logout the user
+   * removing the token from local storage
+   * navigate the user back to login
+   */
   logout() {
     this.api.logout({}).subscribe({
       next: () => {
@@ -63,6 +75,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   * Take the todo-array and sort all todos for each category.
+   * @returns return the sorted list for all todos
+   */
   sortTodos() {
     this.todos().forEach((todo) => {
       switch (todo['category']) {
@@ -83,6 +100,10 @@ export class HomeComponent implements OnInit {
     return this.sortedTodos;
   }
 
+  /**
+   * Open the addTodo-dialog.
+   * after close render new todo-list
+   */
   openAddTodoDialog(): void {
     const dialogRef = this.dialog.open(AddTodoDialogComponent, {
       width: '450px',
@@ -92,6 +113,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   * open the dialog to see the todo-details
+   * @param todo - Object with todo-data
+   *
+   */
   openTodoDetailDialog(todo: any) {
     const dialogRef = this.dialog.open(TodoDetailsComponent, {
       data: todo,
@@ -101,6 +128,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   * @param priority - string with the priority
+   * @returns a background-color for the todocard
+   */
   getPriorityColor(priority: string): string {
     switch (priority) {
       case 'low':
@@ -114,6 +146,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param event drag and drop event
+   * @returns nothing
+   * change the category for each todo after drop
+   */
   onDrop(event: CdkDragDrop<any[]>) {
     if (!event.previousContainer.data || !event.container.data) {
       console.error('Undefined container data:', event);
@@ -138,6 +176,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param todo - todo-object
+   * update the category in backend after drop
+   */
   updateTodo(todo: any) {
     this.api.updateTodo(todo, todo.id).subscribe({
       next: () => {},

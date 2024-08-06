@@ -43,24 +43,40 @@ export class TodoDetailsComponent implements OnInit, OnDestroy {
     priority: this.todo.priority,
   };
 
+  /**
+   * get user list
+   */
   ngOnInit(): void {
     this.getUsers();
   }
 
+  /**
+   * get user list
+   */
   getUsers() {
     return this.api.getUserList().subscribe((data) => {
       this.users = data;
     });
   }
 
+  /**
+   * unsubscribe user-list
+   */
   ngOnDestroy(): void {
     this.getUsers().unsubscribe();
   }
 
+  /**
+   * deletetodo button
+   */
   submitDelete() {
     this.deleteTodo();
   }
 
+  /**
+   *
+   * @returns a response after deleting todo
+   */
   deleteTodo() {
     return this.api.delete(this.todo.id).subscribe({
       next: () => {
@@ -74,10 +90,17 @@ export class TodoDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * hide or show input´s for updating todo
+   */
   showInputs() {
     this.editable = !this.editable;
   }
 
+  /**
+   * set new value for each field after update
+   * save the updated object in backend
+   */
   update() {
     this.btn = true;
     this.todo.title = this.newForm.title;
@@ -87,6 +110,9 @@ export class TodoDetailsComponent implements OnInit, OnDestroy {
     this.saveUpdate();
   }
 
+  /**
+   * save object in backend and show a message for the user
+   */
   saveUpdate() {
     this.api.updateTodo(this.todo, this.todo.id).subscribe({
       next: () => {
@@ -102,6 +128,10 @@ export class TodoDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   *
+   * @returns background-color for todocard
+   */
   getPriorityColor() {
     switch (this.todo.priority) {
       case 'low':

@@ -37,10 +37,20 @@ export class LoginComponent implements OnDestroy {
     console.log(this.errorMessage());
   }
 
+  /**
+   * submit the login
+   */
   submit() {
     this.login();
   }
 
+  /**
+   *
+   * Send login creditials
+   * after success - set token in localstorage.
+   *
+   * @returns An observable that emits the server's response.
+   */
   login() {
     return this.apiService.login(this.loginForm.value).subscribe({
       next: (res: any) => {
@@ -54,15 +64,27 @@ export class LoginComponent implements OnDestroy {
     });
   }
 
+  /**
+   *
+   * show or hide passwordstring
+   *
+   * @param event - Mouseclick
+   */
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
 
+  /**
+   * navigate to register-site
+   */
   goToRegister() {
     this.router.navigateByUrl('register');
   }
 
+  /**
+   * unsubscribe login
+   */
   ngOnDestroy(): void {
     this.login().unsubscribe();
   }

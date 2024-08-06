@@ -45,12 +45,22 @@ export class RegisterComponent implements OnDestroy {
     { validators: this.matchingPasswords('password', 'confirmPassword') }
   );
 
+  /**
+   * if form is valid - register user
+   */
   submit() {
     if (this.registerForm.valid) {
       this.register();
     }
   }
 
+  /**
+   *
+   * Send register-request
+   * after success - navigate to login
+   *
+   * @returns An observable that emits the server's response.
+   */
   register() {
     return this.apiService.register(this.registerForm.value).subscribe({
       next: () => {
@@ -65,11 +75,24 @@ export class RegisterComponent implements OnDestroy {
 
   showData() {}
 
+  /**
+   *
+   * show or hide passwordstring
+   *
+   * @param event - Mouseclick
+   */
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
 
+  /**
+   *
+   * @param {String} passwordKey - password
+   * @param {String} confirmPasswordKey - confirmpassword
+   * set validator to true or false is password match or not
+   * @returns null
+   */
   matchingPasswords(
     passwordKey: string,
     confirmPasswordKey: string
@@ -96,6 +119,9 @@ export class RegisterComponent implements OnDestroy {
     };
   }
 
+  /**
+   * unsubscribe to register
+   */
   ngOnDestroy(): void {
     this.register().unsubscribe();
   }

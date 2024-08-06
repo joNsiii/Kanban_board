@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: #004f4f;
+}
+@import "@angular/material/prebuilt-themes/cyan-orange.css";
+
+.mat-drawer-inner-container {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  overflow: hidden !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.mat-mdc-menu-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.mini-fab {
+  --mdc-fab-small-container-color: green;
+}

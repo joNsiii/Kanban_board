@@ -1,0 +1,65 @@
+<div class="wrapper">
+    <div class="head">
+        <div class="prio" [ngStyle]="{
+            'background-color': getPriorityColor()
+        }">{{ todo.priority }}</div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu class="dropdown-menu" #menu="matMenu">
+            <button mat-mini-fab matTooltip="Delete todo" (click)="submitDelete()">
+                <mat-icon class="delete">delete</mat-icon>
+            </button>
+            <button mat-mini-fab matTooltip="Edit todo" (click)="showInputs()">
+                <mat-icon class="edit">edit</mat-icon>
+            </button>
+        </mat-menu>
+    </div>
+    <div class="single-todo-info">
+        <b><u style="color: rgb(99, 99, 99);">Title:</u></b>
+        @if(!editable) {
+        <h3>{{todo.title}}</h3>
+        }@else {
+        <mat-form-field>
+            <input matInput [(ngModel)]="newForm.title">
+        </mat-form-field>
+        }
+    </div>
+    <div class="single-todo-info">
+        <b><u style="color: rgb(99, 99, 99);">Description:</u></b>
+        @if(!editable) {
+        <div> {{todo.description}}</div>
+        }@else {
+        <mat-form-field>
+            <textarea matInput [(ngModel)]="newForm.description"></textarea>
+        </mat-form-field>
+        }
+    </div>
+    <div class="single-todo-info">
+        <b><u style="color: rgb(99, 99, 99);">Assigned Users:</u></b>
+        @if(!editable) {
+        <ul>
+            @for(user of todo.assigned_users; track $index) {
+            <li>{{ user }}</li>
+            }
+        </ul>
+        }@else {
+        <mat-form-field>
+            <mat-select [(ngModel)]="newForm.assigned_users" multiple>
+                @for(user of users; track $index) {
+                <mat-option value="{{user.username}}">{{user.username}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        }
+    </div>
+    <div>
+        <p><b><u style="color: rgb(99, 99, 99);">created by:</u></b> {{ todo.creator }} on {{ todo.created_at }}</p>
+    </div>
+    @if(editable) {
+    <div class="bottom-btn">
+        <button mat-button [disabled]="btn" (click)="showInputs()">Cancel</button>
+        <button mat-button [disabled]="btn" (click)="update()">Update todo</button>
+    </div>
+    }
+</div>

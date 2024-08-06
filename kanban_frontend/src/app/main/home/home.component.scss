@@ -1,0 +1,94 @@
+.wrapper {
+  height: 100svh;
+  position: relative;
+}
+
+section {
+  height: 90%;
+}
+
+.headline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+  padding: 25px;
+  margin: 0 !important;
+  background-color: transparent;
+
+  h1 {
+    margin: 0;
+    font-weight: bold;
+  }
+}
+
+button {
+  margin-top: 10px;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.category {
+  width: 25%;
+  height: 95%;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid black;
+  background-color: #191c1c;
+  border-radius: 15px;
+  margin: 15px 15px 0 15px;
+}
+
+.header {
+  margin-bottom: 50px;
+  background-color: #004f4f;
+  padding: 5px;
+  border-radius: 15px;
+  font-weight: bold;
+}
+
+.single-todo-card {
+  border: 1px solid gray;
+  color: black;
+  font-weight: 500;
+  margin: 20px;
+  padding: 10px;
+  cursor: pointer;
+  p {
+    margin: 0;
+  }
+
+  &:hover {
+    scale: 1.05;
+  }
+}
+
+.logout-btn {
+  --mdc-text-button-label-text-color: red;
+
+  &:hover {
+    background-color: red;
+    color: white;
+  }
+}
+
+.message {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  width: 100%;
+  height: 50px;
+  background-color: green;
+  color: white;
+  font-size: 20px;
+}

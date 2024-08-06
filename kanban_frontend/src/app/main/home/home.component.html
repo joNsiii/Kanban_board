@@ -1,0 +1,58 @@
+<div class="wrapper">
+    <div class="headline">
+        <button mat-button (click)="openAddTodoDialog()">Create new Todo</button>
+        <h1>Kanban-Board</h1>
+        <div><button mat-button class="logout-btn" (click)="logout()">Logout</button></div>
+    </div>
+    <section>
+        <div class="content" cdkDropList (cdkDropListDropped)="onDrop($event)">
+            <div class="category" id="todo" cdkDropList [cdkDropListConnectedTo]="['in_progress', 'testing', 'done']"
+                [cdkDropListData]="sortedTodos.todo" (cdkDropListDropped)="onDrop($event)">
+                <div class="header">Todo</div>
+                @for(todo of sortedTodos.todo; track $index) {
+                <div class="single-todo-card" cdkDrag [ngStyle]="{
+                        'background-color': getPriorityColor(todo.priority)
+                    }" (click)="openTodoDetailDialog(todo)">
+                    <p>{{todo.title}}</p>
+                </div>
+                }
+            </div>
+            <div class="category" id="in_progress" cdkDropList [cdkDropListConnectedTo]="['todo', 'testing', 'done']"
+                [cdkDropListData]="sortedTodos.in_progress" (cdkDropListDropped)="onDrop($event)">
+                <div class="header">in Progress</div>
+                @for(todo of sortedTodos.in_progress; track $index) {
+                <div class="single-todo-card" cdkDrag [ngStyle]="{
+                        'background-color': getPriorityColor(todo.priority)
+                    }" (click)="openTodoDetailDialog(todo)">
+                    <p>{{todo.title}}</p>
+                </div>
+                }
+            </div>
+            <div class="category" id="testing" cdkDropList [cdkDropListConnectedTo]="['todo', 'in_progress', 'done']"
+                [cdkDropListData]="sortedTodos.testing" (cdkDropListDropped)="onDrop($event)">
+                <div class="header">Test</div>
+                @for(todo of sortedTodos.testing; track $index) {
+                <div class="single-todo-card" cdkDrag [ngStyle]="{
+                        'background-color': getPriorityColor(todo.priority)
+                    }" (click)="openTodoDetailDialog(todo)">
+                    <p>{{todo.title}}</p>
+                </div>
+                }
+            </div>
+            <div class="category" id="done" cdkDropList [cdkDropListConnectedTo]="['todo', 'in_progress', 'testing']"
+                [cdkDropListData]="sortedTodos.done" (cdkDropListDropped)="onDrop($event)">
+                <div class="header">Done</div>
+                @for(todo of sortedTodos.done; track $index) {
+                <div class="single-todo-card" cdkDrag [ngStyle]="{
+                        'background-color': getPriorityColor(todo.priority)
+                    }" (click)="openTodoDetailDialog(todo)">
+                    <p>{{todo.title}}</p>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+    @if(api.messageVisible) {
+    <div class="message">{{ api.messages }}</div>
+    }
+</div>

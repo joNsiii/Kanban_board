@@ -1,0 +1,25 @@
+.wrapper {
+  margin: 0 auto;
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100svh;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  height: fit-content;
+  background-color: #191c1c;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card-title {
+  margin-bottom: 10px;
+}

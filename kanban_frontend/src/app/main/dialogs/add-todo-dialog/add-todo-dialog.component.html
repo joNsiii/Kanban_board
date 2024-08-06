@@ -1,0 +1,35 @@
+<h4>Add new Todo</h4>
+<mat-dialog-content>
+    <form [formGroup]="createTodoForm">
+        <mat-error>{{ errorMessage }}</mat-error>
+        <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Assign user</mat-label>
+            <mat-select formControlName="assigned_users" multiple>
+                @for(user of users; track $index) {
+                <mat-option value="{{user.username}}">{{user.username}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-error>{{ errorMessage }}</mat-error>
+            <mat-label>Priority</mat-label>
+            <mat-select formControlName="priority">
+                <mat-option value="low">low</mat-option>
+                <mat-option value="mid">mid</mat-option>
+                <mat-option value="high">high</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="submit()">Create</button>
+</mat-dialog-actions>

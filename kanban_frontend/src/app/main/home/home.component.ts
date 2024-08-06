@@ -1,13 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  effect,
-  inject,
-  OnChanges,
-  OnInit,
-  signal,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ApiService } from '../../services/api.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +13,6 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',

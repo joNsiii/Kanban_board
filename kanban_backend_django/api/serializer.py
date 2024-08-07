@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import TodoItem
+from .models import Contact, TodoItem
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,25 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             email=validated_data.get('email', ''),
         )
         return user
-    
-    
 
-# class KanbanBoardSerializer(serializers.ModelSerializer):
-#     creator = serializers.ReadOnlyField(source='creator.username')
-#     created_at = serializers.ReadOnlyField()
-#     assigned_users = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True)
-    
-#     class Meta:
-#         model = KanbanBoard
-#         fields = ['title', 'creator', 'assigned_users', 'created_at']
-        
-#     def create(self, validated_data):
-#         user = self.context['request'].user
-#         kanbanboard = KanbanBoard.objects.create(
-#             title=validated_data['title'],
-#             creator=user
-#         ) 
-#         return kanbanboard   
         
 class TodoItemSerializer(serializers.ModelSerializer):
     creator = serializers.ReadOnlyField(source='creator.username')
@@ -59,4 +41,26 @@ class TodoItemSerializer(serializers.ModelSerializer):
         instance.assigned_users.set(assigned_users)
         return instance
     
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['id','contact_username', 'contact_email', 'contact_phone' ]
+
+    def create(self, validated_data):
+        contact_username = validated_data.pop('contact_username')
+        user = User.objects.get(username=contact_username)
+        if user:
+            contact = Contact.objects.create(contact_username=contact_username, **validated_data)
+            return contact
+        return serializers.ValidationError("User does not exist.")
     
+    def update(self, instance, validated_data):
+        contact_username = validated_data.get('contact_username', instance.contact_username)
+        instance.contact_username = contact_username
+        
+        instance.contact_email = validated_data.get('contact_email', instance.contact_email)
+        instance.contact_phone = validated_data.get('contact_phone', instance.contact_phone)
+        
+        instance.save()
+        return instance

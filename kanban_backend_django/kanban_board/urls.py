@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from api.views import LoginView, LogoutView, RegisterUserView, TodoItemView, UserListView
+from api.views import ContactViewSet, LoginView, LogoutView, RegisterUserView, TodoItemView, UserListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -9,5 +9,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name="logout"),
     path('todo/', TodoItemView.as_view()),
     path('users/', UserListView.as_view()),
-    path('todo/<int:pk>/', TodoItemView.as_view(), name='todo-detail-update'),
+    path('contacts/', ContactViewSet.as_view()),
+    path('todo/<int:pk>/', TodoItemView.as_view(), name='contact-delete'),
+    path('contacts/<int:pk>/', ContactViewSet.as_view(), name='contact-update'),
 ]

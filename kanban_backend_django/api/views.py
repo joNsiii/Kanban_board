@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
-from .models import TodoItem
-from .serializer import  TodoItemSerializer
+from .models import Contact, TodoItem
+from .serializer import  ContactSerializer, TodoItemSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from .serializer import UserSerializer
@@ -84,3 +84,34 @@ class LogoutView(APIView):
         if request.method == 'POST':
             logout(request)
             return Response({'message': 'Logout successfully'}, status=status.HTTP_200_OK)
+        
+
+class ContactViewSet(APIView):
+    authentication_classes = [TokenAuthentication]
+    
+    def get(self, request):
+        contacts = Contact.objects.filter(owner=request.user)
+        serializer = ContactSerializer(contacts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = ContactSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(owner=self.request.user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, pk):
+        contact = get_object_or_404(Contact, pk=pk)
+        serializer = ContactSerializer(contact, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk):
+        if request.method == 'DELETE':
+            contact = get_object_or_404(Contact, pk=pk)
+            contact.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_400_BAD_REQUEST)

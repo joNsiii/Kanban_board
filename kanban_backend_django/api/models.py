@@ -33,5 +33,18 @@ class TodoItem(models.Model):
     priority = models.CharField(max_length=4, choices=PRIORITY_CHOICES, default='low')
     category = models.CharField(max_length=15,choices=CATEGORY_CHOICES,default='todo')
     
+    
     def __str__(self):
         return self.title
+    
+class Contact(models.Model):
+    owner = models.ForeignKey(User, related_name='contact', on_delete=models.CASCADE)
+    contact_username = models.CharField(max_length=255, default='')
+    contact_email = models.EmailField(max_length=255, blank=True)
+    contact_phone = models.CharField(max_length=255, blank=True)
+    
+    def __str__(self):
+        return f"{self.owner.username} -> {self.contact_username}"
+    
+
+    

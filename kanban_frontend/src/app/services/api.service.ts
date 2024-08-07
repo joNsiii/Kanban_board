@@ -92,6 +92,22 @@ export class ApiService implements HttpInterceptor {
     return this.http.delete(this.baseUrl + `todo/${id}/`);
   }
 
+  addContact(body: any) {
+    return this.http.post(this.baseUrl + 'contacts/', body);
+  }
+
+  getContacts() {
+    return this.http.get(this.baseUrl + 'contacts/');
+  }
+
+  updateContact(body: any, id: number) {
+    return this.http.put(this.baseUrl + `contacts/${id}/`, body);
+  }
+
+  deleteContacts(id: number) {
+    return this.http.delete(this.baseUrl + `contacts/${id}/`);
+  }
+
   /**
    *
    * @param req get httprequest

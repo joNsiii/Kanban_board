@@ -13,11 +13,19 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
+import { ContactlistdialogComponent } from '../dialogs/contactlistdialog/contactlistdialog.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatSidenavModule, MatButtonModule, CommonModule, DragDropModule],
+  imports: [
+    MatSidenavModule,
+    MatButtonModule,
+    CommonModule,
+    DragDropModule,
+    MatIconModule,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -55,6 +63,16 @@ export class HomeComponent implements OnInit {
     return this.api.getTodos().subscribe((data: any) => {
       this.todos.set(data);
       this.sortTodos();
+    });
+  }
+
+  /**
+   * Open contactListDialog
+   */
+  openContactList() {
+    this.dialog.open(ContactlistdialogComponent, {
+      width: '500px',
+      maxHeight: '80vh',
     });
   }
 

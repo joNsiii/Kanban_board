@@ -1,0 +1,48 @@
+<div class="wrapper">
+    <header>
+        <div class="add-field">
+            <mat-form-field>
+                <mat-label>Select User</mat-label>
+                <mat-select ngDefaultControl [(ngModel)]="userName">
+                    @for(user of filteredUserList; track $index) {
+                    <mat-option value="{{user.username}}">{{user.username}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <button mat-button (click)="addUserToContactList()">Add</button>
+        </div>
+        <button mat-button (click)="closeDialog()"><mat-icon>close</mat-icon></button>
+    </header>
+    <section>
+        <h4>Contacts</h4>
+        <div class="contacts-container">
+            @for(contact of contactsList; track $index) {
+            <div class="single-user-container">
+                <div class="update-inputs">
+                    <span class="name">{{ contact.contact_username }}</span>
+                    @if(editingId === contact.id) {
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" [(ngModel)]="contact.contact_email">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Phone</mat-label>
+                        <input type="text" [(ngModel)]="contact.contact_phone" matInput>
+                    </mat-form-field>
+                    }
+                </div>
+                <div>
+                    @if(editingId === contact.id) {
+                    <button mat-button (click)="cancelEdit()"><mat-icon>cancel</mat-icon></button>
+                    <button mat-button (click)="update(contact)"><mat-icon>save</mat-icon></button>
+                    }@else {
+                    <button mat-button (click)="showUpdateInputs(contact.id)"><mat-icon>edit</mat-icon></button>
+                    }
+                    <button mat-button (click)="submitDelete(contact)"
+                        style="color: red;"><mat-icon>delete</mat-icon></button>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+</div>

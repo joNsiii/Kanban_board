@@ -1,0 +1,61 @@
+.wrapper {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  select {
+    width: 50%;
+  }
+
+  .add-field {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.mat-mdc-button > .mat-icon {
+  --mat-text-button-icon-spacing: 0;
+  --mat-text-button-icon-offset: 0;
+}
+
+h4 {
+  margin: 0;
+  margin-bottom: 25px;
+  color: white;
+}
+
+.single-user-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid black;
+  border-radius: 25px;
+  box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.2),
+    inset -5px -5px 10px rgba(166, 166, 166, 0.5);
+
+  .name {
+    color: white;
+  }
+}
+
+.contacts-container {
+  overflow-y: scroll;
+  max-height: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .update-inputs {
+    display: flex;
+    flex-direction: column;
+  }
+}

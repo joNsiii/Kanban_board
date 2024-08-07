@@ -26,6 +26,11 @@ button {
   margin-top: 10px;
 }
 
+.mat-mdc-button > .mat-icon {
+  --mat-text-button-icon-spacing: 0;
+  --mat-text-button-icon-offset: 0;
+}
+
 .content {
   display: flex;
   width: 100%;

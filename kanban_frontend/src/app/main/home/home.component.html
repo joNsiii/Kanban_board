@@ -1,6 +1,10 @@
 <div class="wrapper">
     <div class="headline">
-        <button mat-button (click)="openAddTodoDialog()">Create new Todo</button>
+        <div>
+            <button mat-button matTooltip="Create todo" (click)="openAddTodoDialog()">Create new Todo</button>
+            <button mat-button matTooltip="Contactlist"
+                (click)="openContactList()"><mat-icon>contacts</mat-icon></button>
+        </div>
         <h1>Kanban-Board</h1>
         <div><button mat-button class="logout-btn" (click)="logout()">Logout</button></div>
     </div>

@@ -64,6 +64,7 @@ export class TodoDetailsComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.getUsers().unsubscribe();
+    // this.deleteTodo().unsubscribe();
   }
 
   /**
